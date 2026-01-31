@@ -1,0 +1,57 @@
+name: Auto-Release on Version Change
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'module.prop'  # Detect module.prop changes
+
+jobs:
+  check-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Need full history to check tags
+
+      - name: Read Version from module.prop
+        id: get_version
+        run: |
+          # Extract the version line (e.g., version=v1.0) and take the part after '='
+          VERSION=$(grep "^version=" module.prop | cut -d'=' -f2)
+          echo "DETECTED_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Version found: $VERSION"
+
+      - name: Check if Tag Exists
+        id: check_tag
+        run: |
+          if git rev-parse "refs/tags/${{ env.DETECTED_VERSION }}" >/dev/null 2>&1; then
+            echo "Tag ${{ env.DETECTED_VERSION }} already exists. Skipping release."
+            echo "EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "Tag ${{ env.DETECTED_VERSION }} is new. Proceeding to release."
+            echo "EXISTS=false" >> $GITHUB_ENV
+          fi
+
+      - name: Build Zip (If New Version)
+        if: env.EXISTS == 'false'
+        run: |
+          ZIP_NAME="SoaresUtils-${{ env.DETECTED_VERSION }}.zip"
+          zip -r "$ZIP_NAME" . -x ".git/*" ".github/*" ".gitignore" "README.md"
+          echo "ZIP_ASSET=$ZIP_NAME" >> $GITHUB_ENV
+
+      - name: Create Release
+        if: env.EXISTS == 'false'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.DETECTED_VERSION }}
+          name: Release ${{ env.DETECTED_VERSION }}
+          files: ${{ env.ZIP_ASSET }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true

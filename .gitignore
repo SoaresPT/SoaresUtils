@@ -1,0 +1,6 @@
+# Ignore possible local zip files
+*.zip
+
+# Ignore system files
+.DS_Store
+Thumbs.db
