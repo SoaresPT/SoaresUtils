@@ -4,6 +4,18 @@
 # Sets LSPosed module scope for multiple Niatic Games on boot and when triggering the Action Button.
 # ==============================================================================
 
+# --- PATH SETUP ---
+SCRIPT_DIR=${0%/*}
+MODDIR=$(dirname "$SCRIPT_DIR")
+SQLITE_BIN="$MODDIR/bin/sqlite3"
+
+# Fallback check
+if [ ! -f "$SQLITE_BIN" ]; then
+    SQLITE_BIN="sqlite3"
+else
+    chmod +x "$SQLITE_BIN"
+fi
+
 # --- CONFIGURATION ---
 DB_PATH="/data/adb/lspd/config/modules_config.db"
 MODULE_PKG="com.github.thepiemonster.hidemocklocation"
@@ -15,9 +27,9 @@ if [ ! -f "$DB_PATH" ]; then
 fi
 
 for APP in $TARGET_APPS_LIST; do
-    if pm list packages | grep -q "$APP"; then
-        # Inject into Database
-        sqlite3 "$DB_PATH" <<EOF
+    if [ "$APP" = "system" ] || pm list packages | grep -q "$APP"; then
+    
+        "$SQLITE_BIN" "$DB_PATH" <<EOF
         INSERT OR IGNORE INTO scope (mid, app_pkg_name, user_id)
         SELECT mid, '$APP', 0
         FROM modules
