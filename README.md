@@ -24,6 +24,9 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ## Changelog
 
+### v1.3
+- **SQLite binary:** Replaced the bundled `sqlite3` with a ARM64 version.
+
 ### v1.2
 - **Zygisk Health Check:** Added an automated checker to ensure Zygisk is enabled in `magisk.db`. This acts as a fail-safe for devices that occasionally boot with Zygisk disabled.
 - **Architecture Stability:** Integrated a standalone `sqlite3` binary for reliable database updates, bypassing Magisk CLI string-parsing issues.
