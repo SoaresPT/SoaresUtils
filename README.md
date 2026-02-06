@@ -24,6 +24,11 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ## Changelog
 
+### v1.3.1
+- **Universal 64-bit Support:** Switched to a truly **statically linked** ARM64 SQLite binary.
+- **Magisk Update Integration:** Added `updateJson` support. Users will now receive official update notifications directly within the Magisk Manager app.
+- **Automated Delivery:** Integrated GitHub Actions to automatically verify binary integrity and manage releases, ensuring more reliable updates.
+
 ### v1.3
 - **SQLite binary:** Replaced the bundled `sqlite3` with a ARM64 version.
 
