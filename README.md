@@ -24,6 +24,9 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ## Changelog
 
+### v1.4.0
+- **New Command Alias:** Introduced the `lsposed` terminal command. Users can now launch the LSPosed Manager directly from ADB or Termux by simply typing `lsposed`.
+
 ### v1.3.1
 - **Universal 64-bit Support:** Switched to a truly **statically linked** ARM64 SQLite binary.
 - **Magisk Update Integration:** Added `updateJson` support. Users will now receive official update notifications directly within the Magisk Manager app.
