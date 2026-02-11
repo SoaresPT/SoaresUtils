@@ -1,0 +1,3 @@
+#!/system/bin/sh
+# View your module's live logs
+tail -n 20 -f /data/local/tmp/soaresutils.log

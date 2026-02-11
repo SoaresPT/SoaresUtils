@@ -15,6 +15,7 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ### Supported Apps
 - **System Framework** (Required for module injection)
+- **GPS Joystick** (`com.theappninjas.fakegpsjoystick`)
 - **Pokémon GO** (`com.nianticlabs.pokemongo`)
 - **Pokémon GO (Samsung Galaxy Store)** (`com.nianticlabs.pokemongo.ares`)
 - **Monster Hunter Now** (`com.nianticlabs.monsterhunter`)
@@ -23,6 +24,11 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 ---
 
 ## Changelog
+
+### v1.4.1
+- **New App Support:** Added `com.theappninjas.fakegpsjoystick` to the scope enforcement list (Fixes issues on Samsung Android 11+).
+- **Auto-Enable:** The tool now automatically enables the Hide Mock Location module in LSPosed if it is found to be disabled.
+- **Log Command:** Added `utils-log` command to view the module's log output from any shell.
 
 ### v1.4.0
 - **New Command Alias:** Introduced the `lsposed` terminal command. Users can now launch the LSPosed Manager directly from ADB or Termux by simply typing `lsposed`.
@@ -48,5 +54,5 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 ---
 
 ## Usage & Troubleshooting
-* **Logs:** View execution history at `/data/local/tmp/soaresutils.log`.
+* **Logs:** View execution history at `/data/local/tmp/soaresutils.log` or by running `utils-log` in a terminal.
 * **Note:** If the tool detects Zygisk was OFF, it will enable it, but you **must reboot** the device manually for Zygisk to become active in memory.
