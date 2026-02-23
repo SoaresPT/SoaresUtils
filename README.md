@@ -25,6 +25,10 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ## Changelog
 
+### v1.5.1
+
+- **New Shell Script (clearota):** Clears any detected LineageOS OTA system updates.
+
 ### v1.5.0
 
 - **ROM-Aware Network Silencer:** Added a dynamic DNS blocking engine. On LineageOS, it automatically silences system update pings (`download.lineageos.org`); on all other ROMs, it focuses on blocking GPS Joystick telemetry and update checks.

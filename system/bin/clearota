@@ -1,0 +1,6 @@
+#!/system/bin/sh
+# SoaresUtils - Clear OTA Command
+
+am force-stop org.lineageos.updater
+pm clear org.lineageos.updater
+rm -rf /data/lineageos_updates/*
