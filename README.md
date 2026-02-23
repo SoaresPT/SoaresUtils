@@ -25,6 +25,10 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ## Changelog
 
+### v1.5.0
+
+- **ROM-Aware Network Silencer:** Added a dynamic DNS blocking engine. On LineageOS, it automatically silences system update pings (`download.lineageos.org`); on all other ROMs, it focuses on blocking GPS Joystick telemetry and update checks.
+
 ### v1.4.1
 - **New App Support:** Added `com.theappninjas.fakegpsjoystick` to the scope enforcement list (Fixes issues on Samsung Android 11+).
 - **Auto-Enable:** The tool now automatically enables the Hide Mock Location module in LSPosed if it is found to be disabled.
