@@ -29,7 +29,7 @@ echo "--- Script started at $(date) ---" >> "$LOGFILE"
 # --- CONFIGURATION ---
 DB_PATH="/data/adb/lspd/config/modules_config.db"
 MODULE_PKG="com.github.thepiemonster.hidemocklocation"
-TARGET_APPS_LIST="system com.theappninjas.fakegpsjoystick com.nianticlabs.pokemongo com.nianticlabs.ingress com.nianticlabs.monsterhunter com.nianticlabs.pokemongo.ares"
+TARGET_APPS_LIST="system com.theappninjas.fakegpsjoystick com.nianticlabs.pokemongo com.nianticlabs.ingress com.nianticlabs.monsterhunter com.nianticlabs.pokemongo.ares com.missbrotowings.joystick"
 
 if [ ! -f "$DB_PATH" ]; then
     log "Error: LSPosed DB not found."
