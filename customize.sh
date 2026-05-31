@@ -1,8 +1,4 @@
 #!/system/bin/sh
-SKIPUNZIP=1
-
-# Extract files
-unzip -o "$ZIPFILE" -d "$MODPATH" >&2
 
 # Set permissions
 set_perm_recursive $MODPATH 0 0 0755 0644

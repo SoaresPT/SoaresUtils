@@ -25,6 +25,11 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ## Changelog
 
+### v1.5.4
+
+- **Nothing OS OTA Guard:** Attempts to disable OTA update services on native Nothing OS ROMs while aborting when the stock Nothing updater is not detected.
+- **Standalone Zygisk Detection:** Checks for installed standalone Zygisk providers such as ReZygisk before attempting to enable native Magisk Zygisk.
+
 ### v1.5.1
 
 - **New Shell Script (clearota):** Clears any detected LineageOS OTA system updates.

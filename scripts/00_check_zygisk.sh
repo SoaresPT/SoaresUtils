@@ -14,6 +14,29 @@ SQLITE_BIN="$MODDIR/bin/sqlite3"
 [ ! -f "$SQLITE_BIN" ] && SQLITE_BIN="sqlite3"
 
 DB_PATH="/data/adb/magisk.db"
+ZYGISK_MODULES_DIR="${ZYGISK_MODULES_DIR:-/data/adb/modules}"
+
+# Skip native Magisk Zygisk enforcement when an active standalone Zygisk
+# provider is installed. These providers conflict with native Zygisk.
+for MODULE_DIR in "$ZYGISK_MODULES_DIR"/*; do
+    PROP_FILE="$MODULE_DIR/module.prop"
+
+    [ -f "$PROP_FILE" ] || continue
+    [ -f "$MODULE_DIR/disable" ] && continue
+    [ -f "$MODULE_DIR/remove" ] && continue
+
+    if grep -qi '^id=rezygisk$' "$PROP_FILE" || \
+       grep -qi '^name=rezygisk$' "$PROP_FILE" || \
+       grep -qi '^id=zygisksu$' "$PROP_FILE" || \
+       grep -qi '^id=zygisknext$' "$PROP_FILE" || \
+       grep -qi '^name=zygisk next$' "$PROP_FILE" || \
+       grep -qi '^id=neozygisk$' "$PROP_FILE" || \
+       grep -qi '^name=neozygisk$' "$PROP_FILE" || \
+       grep -qi '^description=.*standalone implementation of zygisk' "$PROP_FILE"; then
+        echo "[ZYGISK] Standalone Zygisk provider detected. Skipping native Zygisk enable."
+        exit 0
+    fi
+done
 
 # 1. Check current status using your "key" syntax
 CURRENT_VAL=$("$SQLITE_BIN" "$DB_PATH" "SELECT value FROM settings WHERE key='zygisk';")
