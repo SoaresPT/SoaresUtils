@@ -25,6 +25,10 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ## Changelog
 
+### v1.5.5
+
+- **Modified Hide Mock Location Support:** Detects version `2.2.0` / `versionCode=220` or newer of [SoaresPT/HideMockLocation](https://github.com/SoaresPT/HideMockLocation) and skips the legacy `system` LSPosed scope when enforcing targets.
+
 ### v1.5.4
 
 - **Nothing OS OTA Guard:** Attempts to disable OTA update services on native Nothing OS ROMs while aborting when the stock Nothing updater is not detected.
