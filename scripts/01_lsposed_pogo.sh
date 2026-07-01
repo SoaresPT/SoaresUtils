@@ -8,7 +8,7 @@
 SCRIPT_DIR=${0%/*}
 MODDIR=$(dirname "$SCRIPT_DIR")
 SQLITE_BIN="$MODDIR/bin/sqlite3"
-LOGFILE="$MODDIR/lsposed_pogo.log"
+LOG_FILE="/data/local/tmp/soaresutils.log"
 
 # Fallback check
 if [ ! -f "$SQLITE_BIN" ]; then
@@ -20,11 +20,11 @@ fi
 # --- LOGGING FUNCTION ---
 # Prints to stdout and appends to the log file
 log() {
-    echo "$@" | tee -a "$LOGFILE"
+    echo "$@" | tee -a "$LOG_FILE"
 }
 
 # Initialize log
-echo "--- Script started at $(date) ---" >> "$LOGFILE"
+echo "--- Script started at $(date) ---" >> "$LOG_FILE"
 
 # --- CONFIGURATION ---
 DB_PATH="/data/adb/lspd/config/modules_config.db"
@@ -65,7 +65,7 @@ fi
 # Query the 'enabled' column from the 'modules' table.
 # Schema: enabled BOOLEAN DEFAULT 0 CHECK (enabled IN (0, 1))
 # 1 = Enabled, 0 = Disabled.
-MODULE_STATUS=$("$SQLITE_BIN" "$DB_PATH" "SELECT enabled FROM modules WHERE module_pkg_name = '$MODULE_PKG' LIMIT 1;" 2>> "$LOGFILE")
+MODULE_STATUS=$("$SQLITE_BIN" "$DB_PATH" "SELECT enabled FROM modules WHERE module_pkg_name = '$MODULE_PKG' LIMIT 1;" 2>> "$LOG_FILE")
 
 if [ -z "$MODULE_STATUS" ]; then
     log "Error: Module $MODULE_PKG not found in database."
@@ -74,7 +74,7 @@ fi
 
 if [ "$MODULE_STATUS" -ne 1 ]; then
     log "Module $MODULE_PKG is disabled. Enabling it now..."
-    "$SQLITE_BIN" "$DB_PATH" "UPDATE modules SET enabled = 1 WHERE module_pkg_name = '$MODULE_PKG';" 2>> "$LOGFILE"
+    "$SQLITE_BIN" "$DB_PATH" "UPDATE modules SET enabled = 1 WHERE module_pkg_name = '$MODULE_PKG';" 2>> "$LOG_FILE"
     log "Module $MODULE_PKG has been enabled."
 else
     log "Module $MODULE_PKG is already enabled."
@@ -88,7 +88,7 @@ for APP in $TARGET_APPS_LIST; do
 
         # Using a quoted string instead of heredoc to avoid syntax errors
         QUERY="INSERT OR IGNORE INTO scope (mid, app_pkg_name, user_id) SELECT mid, '$APP', 0 FROM modules WHERE module_pkg_name = '$MODULE_PKG';"
-        "$SQLITE_BIN" "$DB_PATH" "$QUERY" 2>> "$LOGFILE"
+        "$SQLITE_BIN" "$DB_PATH" "$QUERY" 2>> "$LOG_FILE"
 
         log "Status: Enforced scope for $APP."
     else
