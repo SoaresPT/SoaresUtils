@@ -1,0 +1,4 @@
+#!/system/bin/sh
+# SoaresUtils - Open the system Location settings
+
+am start-activity -a android.settings.LOCATION_SOURCE_SETTINGS

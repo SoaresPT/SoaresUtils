@@ -25,6 +25,10 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ## Changelog
 
+### v1.6.1
+
+- **New Command Alias (`loc`):** Opens the system Location settings from ADB or Termux by typing `loc`.
+
 ### v1.6.0
 
 - **Removed Nothing OS OTA Guard:** The v1.5.4 OTA blocker never worked. Unquoted shell expansion collapsed its three Play Services receiver targets into a single duplicated call, so those receivers were never disabled, and its boot wait stalled the Action Button by roughly 15 seconds on every press.
