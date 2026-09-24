@@ -1,7 +1,7 @@
 id=soares_utils
 name=SoaresUtils
-version=v1.5.6
-versionCode=156
+version=v1.6.0
+versionCode=160
 author=SoaresPT
 description=System automation utils and various other tweaks.
 updateJson=https://raw.githubusercontent.com/SoaresPT/SoaresUtils/main/update.json

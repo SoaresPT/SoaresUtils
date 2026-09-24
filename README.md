@@ -25,6 +25,14 @@ Runs automatically on **Boot** or via the **Magisk Action Button**.
 
 ## Changelog
 
+### v1.6.0
+
+- **Removed Nothing OS OTA Guard:** The v1.5.4 OTA blocker never worked. Unquoted shell expansion collapsed its three Play Services receiver targets into a single duplicated call, so those receivers were never disabled, and its boot wait stalled the Action Button by roughly 15 seconds on every press.
+
+### v1.5.6
+
+- **New Command Alias (`vector`):** Launches the [Vector](https://github.com/JingMatrix/Vector) manager (JingMatrix's maintained LSPosed successor) from ADB or Termux by typing `vector`. Vector keeps the same configuration database path and schema as LSPosed, so scope enforcement continues to work unchanged.
+
 ### v1.5.5
 
 - **Modified Hide Mock Location Support:** Detects version `2.2.0` / `versionCode=220` or newer of [SoaresPT/HideMockLocation](https://github.com/SoaresPT/HideMockLocation) and skips the legacy `system` LSPosed scope when enforcing targets.
